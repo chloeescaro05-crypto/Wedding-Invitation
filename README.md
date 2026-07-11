@@ -1,2 +1,550 @@
-# Wedding-Invitation
-A personal wedding website for to share details and update for guess.
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation | Bride & Groom</title>
+    
+    <!-- Google Fonts: Playfair Display (Serif), Inter (Sans), and Great Vibes (Script) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'royal': '#0b4429',     // Deep emerald/royal green
+                        'royal-dark': '#072e1b', 
+                        'cream': '#FDFBF7',     // Soft cream/off-white background
+                        'gold': '#D4AF37',      // Gold accents
+                        'accent': '#8C9A8B'     // Muted sage for secondary backgrounds
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'sans': ['"Inter"', 'sans-serif'],
+                        'script': ['"Great Vibes"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #FDFBF7; }
+        
+        /* Navigation Scrolled State */
+        .nav-scrolled { background-color: rgba(11, 68, 41, 0.95); backdrop-filter: blur(5px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        /* Polaroid Style Image Frames */
+        .polaroid { 
+            background: white; 
+            padding: 10px 10px 40px 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .polaroid:hover { transform: scale(1.02) rotate(-1deg); }
+
+        /* Ornate Vintage Frame (for Map and Itinerary) */
+        .ornate-frame {
+            position: relative;
+            padding: 20px;
+            background: #FDFBF7;
+            border: 2px solid #D4AF37;
+            outline: 1px solid #D4AF37;
+            outline-offset: 8px;
+        }
+
+        /* Timeline Styling */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: #D4AF37;
+            transform: translateX(-50%);
+        }
+
+        /* Custom Input Styles */
+        input[type="text"], input[type="email"], select, textarea {
+            background-color: transparent;
+            border-bottom: 1px solid #0b4429;
+            border-top: none; border-left: none; border-right: none;
+            border-radius: 0;
+            padding: 10px 0;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { border-bottom-color: #D4AF37; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-cream">
+
+    <!-- ========================================== -->
+    <!-- STICKY NAVIGATION BAR                      -->
+    <!-- ========================================== -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 top-0 border-b border-white/20">
+        <div class="max-w-6xl mx-auto px-6 flex justify-center space-x-6 md:space-x-12 text-xs uppercase tracking-[0.2em] text-cream">
+            <a href="#home" class="hover:text-gold transition">Home</a>
+            <a href="#details" class="hover:text-gold transition">Details</a>
+            <a href="#venue" class="hover:text-gold transition">Venue</a>
+            <a href="#attire" class="hover:text-gold transition">Attire</a>
+            <a href="#gallery" class="hover:text-gold transition">Gallery</a>
+            <a href="#rsvp" class="hover:text-gold transition font-bold">RSVP</a>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- HERO COVER SECTION                         -->
+    <!-- ========================================== -->
+    <!-- EDIT: Add background image by replacing the URL below -->
+    <section id="home" class="relative w-full h-screen flex flex-col justify-center items-center text-center px-6 bg-royal text-cream overflow-hidden" style="background-image: linear-gradient(rgba(11, 68, 41, 0.7), rgba(11, 68, 41, 0.7)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070'); background-size: cover; background-position: center;">
+        <div class="z-10 mt-16">
+            <h3 class="text-gold tracking-[0.3em] uppercase text-xs md:text-sm mb-6 font-light">The Wedding Of</h3>
+            
+            <!-- SLOT: Bride & Groom Names -->
+            <h1 class="font-script text-7xl md:text-9xl mb-4 leading-none font-normal">
+                Hannah <span class="font-serif text-gold text-5xl md:text-7xl">&amp;</span> Kenneth
+            </h1>
+            
+            <div class="flex items-center justify-center space-x-4 mt-8 text-sm md:text-base tracking-widest font-light uppercase">
+                <span>soon to be announce</span>
+                <span class="text-gold">•</span>
+                <span>Sariaya, Quezon</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- WELCOME & COUNTDOWN                        -->
+    <!-- ========================================== -->
+    <section class="py-24 px-6 text-center max-w-3xl mx-auto bg-cream">
+        <h2 class="font-script text-5xl md:text-6xl text-royal mb-6">You are invited</h2>
+        <p class="font-serif italic text-gray-600 mb-8">We're so delighted you're here and can't wait to celebrate this special moment with you.</p>
+        <p class="text-gray-500 font-light leading-relaxed mb-12">
+            This space has been thoughtfully created to guide you through all the details as our wedding approaches — from venue information and outfit guides to the event schedule and other essentials.
+        </p>
+        
+        <!-- Floral Divider Placeholder -->
+        <div class="text-gold text-2xl mb-16">❀ ❀ ❀</div>
+
+        <div class="bg-royal text-cream py-16 px-6 rounded-sm shadow-xl">
+            <h2 class="font-script text-5xl text-gold mb-8">Our forever begins in</h2>
+            <!-- Countdown Timer -->
+            <div id="countdown" class="flex justify-center gap-6 md:gap-10 text-center">
+                <div class="flex flex-col"><span id="days" class="text-4xl md:text-5xl font-serif mb-2">00</span><span class="text-[10px] uppercase tracking-[0.2em] text-gold">Days</span></div>
+                <div class="flex flex-col"><span id="hours" class="text-4xl md:text-5xl font-serif mb-2">00</span><span class="text-[10px] uppercase tracking-[0.2em] text-gold">Hours</span></div>
+                <div class="flex flex-col"><span id="mins" class="text-4xl md:text-5xl font-serif mb-2">00</span><span class="text-[10px] uppercase tracking-[0.2em] text-gold">Mins</span></div>
+                <div class="flex flex-col"><span id="secs" class="text-4xl md:text-5xl font-serif mb-2">00</span><span class="text-[10px] uppercase tracking-[0.2em] text-gold">Secs</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MEMORY LANE / TIMELINE                     -->
+    <!-- ========================================== -->
+    <section class="py-20 px-6 overflow-hidden">
+        <div class="text-center mb-16">
+            <h2 class="font-script text-6xl text-royal mb-2">Memory Lane</h2>
+        </div>
+
+        <div class="relative max-w-4xl mx-auto timeline-line py-10">
+            <!-- Story Item 1 (Left) -->
+            <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative z-10 w-full">
+                <div class="md:w-5/12 flex justify-end md:pr-8 mb-6 md:mb-0">
+                    <div class="text-right">
+                        <p class="font-serif italic text-lg text-royal">Where our story began</p>
+                        <h4 class="font-script text-4xl text-gold mt-2">2018</h4>
+                    </div>
+                </div>
+                <!-- Center Dot -->
+                <div class="hidden md:block w-4 h-4 rounded-full bg-gold absolute left-1/2 transform -translate-x-1/2"></div>
+                <div class="md:w-5/12 flex justify-start md:pl-8">
+                    <!-- EDIT: Add your relationship photo -->
+                    <div class="polaroid w-48 h-56">
+                        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=500" class="w-full h-full object-cover grayscale hover:grayscale-0 transition" alt="Memory 1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Story Item 2 (Right) -->
+            <div class="flex flex-col md:flex-row-reverse items-center justify-between relative z-10 w-full">
+                <div class="md:w-5/12 flex justify-start md:pl-8 mb-6 md:mb-0">
+                    <div class="text-left">
+                        <p class="font-serif italic text-lg text-royal">The time I said "YES!" '</p>
+                        <h4 class="font-script text-4xl text-gold mt-2">2026</h4>
+                    </div>
+                </div>
+                <!-- Center Dot -->
+                <div class="hidden md:block w-4 h-4 rounded-full bg-gold absolute left-1/2 transform -translate-x-1/2"></div>
+                <div class="md:w-5/12 flex justify-end md:pr-8">
+                     <!-- EDIT: Add your relationship photo -->
+                    <div class="polaroid w-48 h-56">
+                        <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500" class="w-full h-full object-cover grayscale hover:grayscale-0 transition" alt="Memory 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- THE EVENTS & ITINERARY                     -->
+    <!-- ========================================== -->
+    <section id="details" class="py-20 px-6 bg-royal text-cream">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-script text-6xl text-gold mb-4">Itinerary</h2>
+                <p class="font-light tracking-widest text-sm uppercase">A weekend of celebration</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Night Before -->
+                <div class="border border-gold/30 p-8 flex flex-col items-center text-center bg-royal-dark">
+                    <h3 class="font-serif text-2xl mb-2 text-gold">The Night Before</h3>
+                    <p class="text-xs uppercase tracking-widest mb-6 opacity-70">soon to be announced</p>
+                    <p class="font-light text-sm mb-4 leading-relaxed">Join us for a welcome party and dinner as we kick off the wedding weekend with drinks and laughter.</p>
+                    <p class="font-serif italic text-gold mt-auto">Escaro Residence</p>
+                </div>
+
+                <!-- Wedding Day Details inside Ornate Frame -->
+                <div class="ornate-frame bg-cream text-royal flex flex-col items-center text-center p-8">
+                    <h3 class="font-serif text-2xl mb-2 text-royal">The Wedding Day</h3>
+                    <p class="text-xs uppercase tracking-widest mb-6 text-gray-500">soon to be announced</p>
+                    
+                    <div class="w-full space-y-4 font-serif text-sm">
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>2:00 PM</span>
+                            <span class="italic text-gray-600">Ceremony</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>3:30 PM</span>
+                            <span class="italic text-gray-600">Cocktails & Photos</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-200 pb-2">
+                            <span>4:30 PM</span>
+                            <span class="italic text-gray-600">Reception Dinner</span>
+                        </div>
+                        <div class="flex justify-between pb-2">
+                            <span>6:00 PM</span>
+                            <span class="italic text-gray-600">Dancing & Party</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VENUE & LOCATION                           -->
+    <!-- ========================================== -->
+    <section id="venue" class="py-24 px-6 bg-cream border-b border-gold/20">
+        <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            
+            <!-- Map Details -->
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <h2 class="font-script text-6xl text-royal mb-4">Venue Map</h2>
+                <h3 class="font-serif text-2xl text-gray-800 mb-2">Escaro Residence</h3>
+                <p class="text-gray-600 mb-4 font-light">Manggalang, Bantilan, Sariaya, Quezon</p>
+                <p class="text-sm text-gray-500 mb-8 uppercase tracking-widest">Contact: <a href="tel:09056511743" class="text-royal border-b border-royal hover:text-gold hover:border-gold transition">09056511743</a></p>
+
+                <!-- Custom Alert Box matching user prompt -->
+                <div class="bg-white border border-gold/50 p-6 rounded shadow-sm relative mb-8">
+                    <span class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-cream px-2 text-gold text-lg">✦</span>
+                    <p class="text-royal font-serif italic text-lg mb-2">Important Note for Guests:</p>
+                    <p class="text-sm font-light text-gray-700 leading-relaxed">The location is right before the diversion of Lucena and Candelaria. Please refer to the map or contact us if you need guidance upon arrival.</p>
+                </div>
+                
+                <a href="https://maps.google.com/maps?q=13.8400177,121.4315404" target="_blank" class="inline-block border border-royal text-royal px-8 py-3 uppercase tracking-widest text-xs hover:bg-royal hover:text-white transition">Open in Google Maps</a>
+            </div>
+
+            <!-- Vintage Styled Map Embed -->
+            <div class="lg:w-1/2 w-full">
+                <div class="polaroid shadow-2xl rotate-2">
+                    <div class="w-full h-[400px] border border-gray-200">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=13.8400177,121.4315404&hl=en&z=15&output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <p class="font-script text-3xl text-center text-royal mt-4">See you there</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- DRESS CODE / OUTFIT GUIDES                 -->
+    <!-- ========================================== -->
+    <section id="attire" class="py-24 px-6 bg-[#f3f0e8]">
+        <div class="text-center mb-16">
+            <h2 class="font-script text-6xl text-royal mb-4">Wedding Attire</h2>
+            <p class="font-serif italic text-gray-600 max-w-2xl mx-auto text-lg mb-2">Royal Green Palette</p>
+            <p class="text-gray-500 font-light max-w-2xl mx-auto text-sm">We kindly ask our guests to wear formal or semi-formal attire to match our theme. Please draw inspiration from the aesthetic boards below.</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- SLOT 1 -->
+            <div class="polaroid">
+                <img src="https://kommodo.ai/i/TPX8YLiMAAf1yn4uWzG8.jpg" alt="Outfit Guide 1" class="w-full h-80 object-cover bg-gray-200">
+            </div>
+            <!-- SLOT 2 -->
+            <div class="polaroid">
+                <img src="https://kommodo.ai/i/6i5PC84nTbp6z7qaHi0M.jpg" alt="Outfit Guide 2" class="w-full h-80 object-cover bg-gray-200">
+            </div>
+            <!-- SLOT 3 -->
+            <div class="polaroid">
+                <img src="https://kommodo.ai/i/QedgwyIvZ7VZdd5syqEK.jpg" alt="Outfit Guide 3" class="w-full h-80 object-cover bg-gray-200">
+            </div>
+            <!-- SLOT 4 -->
+            <div class="polaroid">
+                <img src="https://kommodo.ai/i/n9vopLof6a37UbRkvmzP.jpg" alt="Outfit Guide 4" class="w-full h-80 object-cover bg-gray-200">
+            </div>
+            <!-- SLOT 5 -->
+            <div class="polaroid">
+                <img src="https://kommodo.ai/i/Ummtia6AiBPqVN9LIhUm.jpg" alt="Outfit Guide 5" class="w-full h-80 object-cover bg-gray-200">
+            </div>
+            <!-- SLOT 6 (Placeholder for symmetry) -->
+            <div class="polaroid flex flex-col justify-center items-center bg-white border border-gray-200">
+                <span class="font-script text-4xl text-gold mb-2">Thank you</span>
+                <span class="font-serif italic text-gray-500 text-sm">for dressing up with us.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FAQ SECTION                                -->
+    <!-- ========================================== -->
+    <section class="py-20 px-6 max-w-4xl mx-auto">
+        <h2 class="font-script text-6xl text-royal text-center mb-12">Frequently Asked Questions</h2>
+        
+        <div class="grid md:grid-cols-2 gap-x-12 gap-y-8 font-light text-sm">
+            <div>
+                <h4 class="font-serif text-lg text-royal mb-2 font-medium">What time should I arrive?</h4>
+                <p class="text-gray-600">The ceremony begins at 2:00 PM. We kindly ask guests to arrive 30 minutes prior to find your seats.</p>
+            </div>
+            <div>
+                <h4 class="font-serif text-lg text-royal mb-2 font-medium">Are kids welcome?</h4>
+                <p class="text-gray-600">Yes, children are warmly welcomed. We invite you to enjoy the celebration alongside your little ones.</p>
+            </div>
+            <div>
+                <h4 class="font-serif text-lg text-royal mb-2 font-medium">Is there parking available?</h4>
+                <p class="text-gray-600">Yes, there is designated parking available at Escaro Residence. Attendants will guide you upon arrival.</p>
+            </div>
+            <div>
+                <h4 class="font-serif text-lg text-royal mb-2 font-medium">When should I RSVP by?</h4>
+                <p class="text-gray-600">Please RSVP by soon to be announced so we can finalize headcount and details.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- QR CODE & LIVE PHOTO GALLERY               -->
+    <!-- ========================================== -->
+    <section id="gallery" class="py-20 px-6 bg-royal text-cream border-t border-b border-gold/30">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-script text-6xl text-gold mb-4">Capture the Moment</h2>
+                <p class="font-light tracking-wide max-w-xl mx-auto opacity-80">Help us document our special day! Scan the QR code or click below to upload the photos you took.</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 bg-royal-dark/50 p-8 rounded border border-gold/20">
+                <!-- QR Code -->
+                <div class="bg-white p-2 shadow-xl w-40 h-40 flex-shrink-0">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-deployment-link.com" alt="Upload QR Code" class="w-full h-full object-contain">
+                </div>
+                
+                <div class="text-center md:text-left">
+                    <h4 class="text-2xl font-serif mb-2">Upload Your Photos</h4>
+                    <p class="text-sm font-light text-cream/70 mb-6">Select images directly from your camera roll.</p>
+                    
+                    <label class="cursor-pointer bg-transparent border border-gold text-gold px-8 py-3 uppercase tracking-widest text-xs hover:bg-gold hover:text-royal transition inline-flex items-center gap-2">
+                        Choose Photos
+                        <input type="file" multiple accept="image/*" class="hidden" id="photo-upload">
+                    </label>
+                </div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="mt-16">
+                <h3 class="font-script text-4xl text-center mb-8">Shared Memories</h3>
+                <div id="photo-gallery" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="w-full h-48 border border-white/10 flex items-center justify-center text-xs font-light tracking-widest uppercase text-cream/50 col-span-full">Awaiting your photos...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FORMAL RSVP SECTION                        -->
+    <!-- ========================================== -->
+    <section id="rsvp" class="py-24 px-6 bg-cream">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="font-script text-6xl text-royal mb-4">Kindly Respond</h2>
+            <p class="font-serif italic text-gray-500 mb-10">We hope you can join us!</p>
+
+            <form class="space-y-8 text-left bg-white p-10 border border-gray-200 shadow-sm" onsubmit="event.preventDefault(); alert('RSVP successfully submitted!');">
+                
+                <div>
+                    <input type="text" placeholder="Your Full Name(s)*" required class="font-serif italic text-royal text-lg">
+                </div>
+
+                <div class="space-y-4">
+                    <p class="font-serif text-royal mb-2">Will you be attending?</p>
+                    <label class="flex items-center space-x-3 cursor-pointer">
+                        <input type="radio" name="attending" value="yes" class="form-radio text-royal focus:ring-royal" checked>
+                        <span class="font-light text-gray-700">Joyfully accepts</span>
+                    </label>
+                    <label class="flex items-center space-x-3 cursor-pointer">
+                        <input type="radio" name="attending" value="no" class="form-radio text-royal focus:ring-royal">
+                        <span class="font-light text-gray-700">Regretfully declines</span>
+                    </label>
+                </div>
+
+                <div>
+                    <input type="text" placeholder="Guest(s) Name (if applicable)" class="font-serif italic text-royal text-lg">
+                </div>
+
+                <div>
+                    <input type="text" placeholder="Dietary Restrictions or Allergies?" class="font-serif italic text-royal text-lg">
+                </div>
+
+                <div class="pt-6 text-center">
+                    <button type="submit" class="bg-royal text-cream px-12 py-3 uppercase tracking-[0.2em] text-xs hover:bg-gold hover:text-royal transition w-full md:w-auto">
+                        Send RSVP
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- HIDDEN ADMIN PANEL                         -->
+    <!-- ========================================== -->
+    <section id="admin-panel" class="hidden bg-[#2a1111] text-white py-10 px-6 border-t border-red-900/50">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="font-serif text-2xl text-red-200">Admin View: Manage Photos</h2>
+                <button id="close-admin" class="border border-white/20 px-4 py-2 text-xs uppercase tracking-widest hover:bg-white/10">Close</button>
+            </div>
+            <div id="admin-gallery" class="grid grid-cols-2 md:grid-cols-5 gap-4"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cream border-t border-gray-200 py-10 text-center relative">
+        <h2 class="font-script text-4xl text-royal mb-2">Hannah & Kenneth</h2>
+        <p class="text-xs uppercase tracking-widest text-gray-400">© 2027. See you soon.</p>
+        <!-- Secret admin toggle area (Double click bottom right) -->
+        <div id="admin-trigger" class="absolute bottom-4 right-4 w-10 h-10 cursor-default opacity-0"></div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC                           -->
+    <!-- ========================================== -->
+    <script>
+        // --- 1. STICKY NAV BACKGROUND ON SCROLL ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-3');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.remove('py-3');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // --- 2. COUNTDOWN TIMER ---
+        const weddingDate = new Date("March 20, 2027 14:00:00").getTime();
+        const countdownInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "<div class='text-4xl font-script text-gold'>Today is the Day!</div>";
+                return;
+            }
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("mins").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("secs").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+        }, 1000);
+
+        // --- 3. PHOTO UPLOAD & GALLERY LOGIC ---
+        const uploadInput = document.getElementById('photo-upload');
+        const gallery = document.getElementById('photo-gallery');
+        const adminGallery = document.getElementById('admin-gallery');
+        let uploadedPhotos = []; 
+
+        uploadInput.addEventListener('change', (event) => {
+            const files = Array.from(event.target.files);
+            if (files.length > 0 && uploadedPhotos.length === 0) gallery.innerHTML = ''; 
+            
+            files.forEach(file => {
+                uploadedPhotos.push({ id: Date.now() + Math.random(), url: URL.createObjectURL(file) });
+            });
+            renderGalleries();
+            uploadInput.value = ''; 
+        });
+
+        function renderGalleries() {
+            if (uploadedPhotos.length === 0) {
+                gallery.innerHTML = '<div class="w-full h-48 border border-white/10 flex items-center justify-center text-xs font-light tracking-widest uppercase text-cream/50 col-span-full">Awaiting your photos...</div>';
+                adminGallery.innerHTML = '';
+                return;
+            }
+            
+            // Public Gallery
+            gallery.innerHTML = uploadedPhotos.map(photo => `
+                <div class="aspect-square bg-royal-dark border border-white/10 p-1">
+                    <img src="${photo.url}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500" alt="Guest Photo">
+                </div>
+            `).reverse().join(''); 
+
+            // Admin Gallery
+            adminGallery.innerHTML = uploadedPhotos.map(photo => `
+                <div class="relative aspect-square bg-black border border-white/20 p-1">
+                    <img src="${photo.url}" class="w-full h-full object-cover opacity-60" alt="Admin View">
+                    <button onclick="deletePhoto('${photo.id}')" class="absolute top-2 right-2 bg-red-800 hover:bg-red-600 text-white w-6 h-6 flex items-center justify-center text-xs border border-white/30">✕</button>
+                </div>
+            `).reverse().join('');
+        }
+
+        // --- 4. ADMIN PANEL TOGGLE ---
+        const adminPanel = document.getElementById('admin-panel');
+        document.getElementById('admin-trigger').addEventListener('dblclick', () => {
+            if (prompt("Admin Password:") === "wed2026") {
+                adminPanel.classList.remove('hidden');
+                window.scrollTo({ top: adminPanel.offsetTop, behavior: 'smooth' });
+            }
+        });
+        document.getElementById('close-admin').addEventListener('click', () => adminPanel.classList.add('hidden'));
+
+        window.deletePhoto = function(id) {
+            if(confirm("Delete this photo?")) {
+                uploadedPhotos = uploadedPhotos.filter(photo => photo.id.toString() !== id.toString());
+                renderGalleries();
+            }
+        };
+    </script>
+</body>
+</html>
